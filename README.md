@@ -10,11 +10,28 @@ Small shell helpers and shared config for local development workflows.
 
 `.env.local` is gitignored. Only `.env.example` is committed.
 
-## `env-sync.sh`
+## `hub.sh` (recommended)
 
-Source from your shell rc (or run `source /path/to/skills/env-sync.sh`):
+One line loads everything in this folder:
 
-- Loads `.env.local` from this repo when present (exports all `KEY=value` entries).
-- Defines `syncenv`, `syncccip`, and alias `syncday` (see comments in `env-sync.sh`).
+```bash
+source /path/to/skills/hub.sh
+```
+
+- Sets `SKILLS_ROOT` (unless you already exported it).
+- Sources **`env-sync.sh`** first (loads `.env.local`, defines `syncenv`, `syncccip`, alias `syncday`).
+- Then **`git-branch-workflow.sh`**: `cleanbranches`, `cleanorphans` (optional: `SKILLS_GIT_REMOTE`, `SKILLS_PROTECTED_BRANCHES`).
+- Then **`networking-workflow.sh`**: `myip` (optional: `SKILLS_MYIP_URL`).
+- Then any **other** `*.sh` files in this directory (except `hub.sh`), in sorted order, so new skills are included without editing the hub.
+
+## `env-sync.sh` (minimal)
+
+If you only want env sync helpers and not git/network commands:
+
+```bash
+source /path/to/skills/env-sync.sh
+```
+
+You can also `source` individual `*-workflow.sh` files alone if you set `SKILLS_ROOT` first.
 
 Sourcing works from **Bash** or **Zsh**. Skills root is detected automatically; you can override with `SKILLS_ROOT` in `.env.local` or before sourcing.

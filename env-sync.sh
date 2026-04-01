@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 # env-sync.sh — portable helpers to run repo env sync scripts from any cwd.
 #
-# Usage (recommended): add to your shell rc:
-#   source /path/to/skills/env-sync.sh
+# Usage:
+#   Full toolbox (env + git + network helpers): source /path/to/skills/hub.sh
+#   Env sync only: source /path/to/skills/env-sync.sh
+#   Or add either line to your shell rc.
 #
 # Optional local config: copy `.env.example` → `.env.local` in this directory.
 # Variables there are exported when you source this file (see README.md).
@@ -14,7 +16,7 @@
 # Example ~/.zshrc (without .env.local):
 #   export ENV_SYNC_WORKSPACE="$HOME/Developer"
 #   export ENV_SYNC_PROJECT="algobot-webapp-ui"
-#   source "$HOME/Developer/skills/env-sync.sh"
+#   source "$HOME/Developer/skills/hub.sh"
 #
 # Migrating from ALGO_BOT_ROOT: set ENV_SYNC_PROJECT_ROOT in .env.local or shell rc.
 
@@ -85,3 +87,5 @@ syncccip() {
 
 # Daily: env file sync + command center LAN hints
 alias syncday='syncenv && syncccip'
+
+# Git / networking helpers are loaded by hub.sh; source them yourself if you use env-sync.sh only.
